@@ -11,6 +11,12 @@ class Board extends Component {
       { id: 5, list: "Teams", content: "card 5" }
     ]
   };
+
+  handleDelete = cardId => {
+    const cards = this.state.cards.filter(c => c.id !== cardId);
+    this.setState({ cards });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -18,16 +24,32 @@ class Board extends Component {
           <h1>Board</h1>
           <div className="row">
             <div className="col-sm">
-              <List name={"Teams"} cards={this.state.cards} />
+              <List
+                name={"Teams"}
+                cards={this.state.cards}
+                onDelete={this.handleDelete}
+              />
             </div>
             <div className="col-sm">
-              <List name={"Priorities"} cards={this.state.cards} />
+              <List
+                name={"Priorities"}
+                cards={this.state.cards}
+                onDelete={this.handleDelete}
+              />
             </div>
             <div className="col-sm">
-              <List name={"Current Projects"} cards={this.state.cards} />
+              <List
+                name={"Current Projects"}
+                cards={this.state.cards}
+                onDelete={this.handleDelete}
+              />
             </div>
             <div className="col-sm">
-              <List name={"Completed Projects"} cards={this.state.cards} />
+              <List
+                name={"Completed Projects"}
+                cards={this.state.cards}
+                onDelete={this.handleDelete}
+              />
             </div>
           </div>
         </div>

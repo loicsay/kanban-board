@@ -6,12 +6,13 @@ class Card extends Component {
       <>
         <div className="card">
           <div className="card-body">
-            <p className="card-text">
-                {this.props.content}
-            </p>
-            <a href="#" className="btn btn-danger">
+            <p className="card-text">{this.props.content}</p>
+            <button
+              className="btn-danger btn-sm"
+              onClick={() => this.props.onDelete(this.props.id)}
+            >
               Delete
-            </a>
+            </button>
           </div>
         </div>
       </>

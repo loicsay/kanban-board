@@ -3,7 +3,9 @@ import Card from "./card";
 
 class List extends Component {
   render() {
-    const filtered_cards = this.props.cards.filter(card => card.list === this.props.name);
+    const filtered_cards = this.props.cards.filter(
+      card => card.list === this.props.name
+    );
     return (
       <>
         <h4>{this.props.name}</h4>
@@ -11,6 +13,8 @@ class List extends Component {
           <Card
             key={card.id}
             content={card.content}
+            id={card.id}
+            onDelete={this.props.onDelete}
           />
         ))}
       </>
