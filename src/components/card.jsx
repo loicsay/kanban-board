@@ -13,6 +13,8 @@ class Card extends Component {
             >
               Delete
             </button>
+            <button className="btn-primary btn-sm"
+            onClick={()=>this.props.onEdit(this.props.id)}>Edit</button>
           </div>
         </div>
       </>

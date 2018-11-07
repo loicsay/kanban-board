@@ -15,6 +15,7 @@ class List extends Component {
             content={card.content}
             id={card.id}
             onDelete={this.props.onDelete}
+            onEdit={this.props.onEdit}
           />
         ))}
       </>

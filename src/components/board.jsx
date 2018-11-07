@@ -4,16 +4,23 @@ import List from "./list";
 class Board extends Component {
   state = {
     cards: [
-      { id: 1, list: "Teams", content: "card 1" },
-      { id: 2, list: "Priorities", content: "card 2" },
-      { id: 3, list: "Current Projects", content: "card 3" },
-      { id: 4, list: "Completed Projects", content: "card 4" },
-      { id: 5, list: "Teams", content: "card 5" }
+      { id: 0, list: "Teams", content: "card 0" },
+      { id: 1, list: "Priorities", content: "card 1" },
+      { id: 2, list: "Current Projects", content: "card 2" },
+      { id: 3, list: "Completed Projects", content: "card 3" },
+      { id: 4, list: "Teams", content: "card 4" }
     ]
   };
 
   handleDelete = cardId => {
     const cards = this.state.cards.filter(c => c.id !== cardId);
+    this.setState({ cards });
+  };
+
+  handleEdit = cardId => {
+    const text = String(prompt());
+    const cards = this.state.cards;
+    cards[cardId].content = text;
     this.setState({ cards });
   };
 
@@ -28,6 +35,7 @@ class Board extends Component {
                 name={"Teams"}
                 cards={this.state.cards}
                 onDelete={this.handleDelete}
+                onEdit={this.handleEdit}
               />
             </div>
             <div className="col-sm">
@@ -35,6 +43,7 @@ class Board extends Component {
                 name={"Priorities"}
                 cards={this.state.cards}
                 onDelete={this.handleDelete}
+                onEdit={this.handleEdit}
               />
             </div>
             <div className="col-sm">
@@ -42,6 +51,7 @@ class Board extends Component {
                 name={"Current Projects"}
                 cards={this.state.cards}
                 onDelete={this.handleDelete}
+                onEdit={this.handleEdit}
               />
             </div>
             <div className="col-sm">
@@ -49,6 +59,7 @@ class Board extends Component {
                 name={"Completed Projects"}
                 cards={this.state.cards}
                 onDelete={this.handleDelete}
+                onEdit={this.handleEdit}
               />
             </div>
           </div>
