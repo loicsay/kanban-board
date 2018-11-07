@@ -12,14 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.col-sm {
-  background-color: black;
-  border-color: white;
-  border-style: solid;
-  color: white;
-}
-
-.card {
-  color: black;
-}

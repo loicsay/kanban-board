@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import Card from "./card";
+import List from "./list";
 
 class Board extends Component {
-  state = {};
+  state = {
+    cards: [
+      { id: 1, list: "Teams", content: "card 1" },
+      { id: 2, list: "Priorities", content: "card 2" },
+      { id: 3, list: "Current Projects", content: "card 3" },
+      { id: 4, list: "Completed Projects", content: "card 4" },
+      { id: 5, list: "Teams", content: "card 5" }
+    ]
+  };
   render() {
     return (
       <React.Fragment>
@@ -10,21 +18,16 @@ class Board extends Component {
           <h1>Board</h1>
           <div className="row">
             <div className="col-sm">
-              <h4>Teams</h4>
-              <Card />
-              <Card />
+              <List name={"Teams"} cards={this.state.cards} />
             </div>
             <div className="col-sm">
-              <h4>Priorities</h4>
-              <Card />
+              <List name={"Priorities"} cards={this.state.cards} />
             </div>
             <div className="col-sm">
-              <h4>Current Projects</h4>
-              <Card />
+              <List name={"Current Projects"} cards={this.state.cards} />
             </div>
             <div className="col-sm">
-              <h4>Completed Projects</h4>
-              <Card />
+              <List name={"Completed Projects"} cards={this.state.cards} />
             </div>
           </div>
         </div>
