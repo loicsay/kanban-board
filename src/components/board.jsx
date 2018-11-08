@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import List from "./list";
+import List from "./List";
 
 class Board extends Component {
   state = {
@@ -11,13 +11,29 @@ class Board extends Component {
       { id: 4, list: "Teams", content: "Support" },
       { id: 5, list: "Teams", content: "People" },
       { id: 6, list: "Teams", content: "IT" },
-      { id: 7, list: "Priorities", content: "Increase sales revenu by 30% in Q3" },
-      { id: 8, list: "Priorities", content: "Launch first international expansion" },
-      { id: 9, list: "Priorities", content: "Test new messaging for SMB market" },
+      {
+        id: 7,
+        list: "Priorities",
+        content: "Increase sales revenu by 30% in Q3"
+      },
+      {
+        id: 8,
+        list: "Priorities",
+        content: "Launch first international expansion"
+      },
+      {
+        id: 9,
+        list: "Priorities",
+        content: "Test new messaging for SMB market"
+      },
       { id: 10, list: "Current", content: "Website Redesign" },
       { id: 11, list: "Current", content: "Ship iOS app" },
       { id: 12, list: "Current", content: "Analytics Data" },
-      { id: 13, list: "Current", content: "Increase conversion rate by 20% by Q3" },
+      {
+        id: 13,
+        list: "Current",
+        content: "Increase conversion rate by 20% by Q3"
+      },
       { id: 14, list: "Current", content: "Develop Engineering Blog" },
       { id: 15, list: "Current", content: "Brand Guidelines" },
       { id: 16, list: "Completed", content: "Social Media Campaign" },
@@ -43,7 +59,19 @@ class Board extends Component {
         cards[id].content = content;
       }
     }
-    this.setState(cards); 
+    this.setState(cards);
+  };
+
+  renderList = list => {
+    return (
+      <List
+        key={list.id}
+        name={list.name}
+        cards={this.state.cards}
+        onDelete={this.handleDelete}
+        onEdit={this.handleEdit}
+      />
+    );
   };
 
   render() {
@@ -51,17 +79,7 @@ class Board extends Component {
       <React.Fragment>
         <div className="container">
           <h1>Kanban board</h1>
-          <div className="row">
-            {this.state.lists.map(list => (
-              <List
-                key={list.id}
-                name={list.name}
-                cards={this.state.cards}
-                onDelete={this.handleDelete}
-                onEdit={this.handleEdit}
-              />
-            ))}
-          </div>
+          <div className="row">{this.state.lists.map(this.renderList)}</div>
         </div>
       </React.Fragment>
     );
