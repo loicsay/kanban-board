@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Card extends Component {
   handleOnBlur = e => {
-    this.props.onEdit(e.target.value, this.props.id);
+    this.props.onEditCard(e.target.value, this.props.id);
   };
 
   render() {
@@ -11,7 +11,7 @@ class Card extends Component {
           <div className="card-body">
             <button
               className="btn-danger btn-sm"
-              onClick={() => this.props.onDelete(this.props.id)}
+              onClick={() => this.props.onDeleteCard(this.props.id)}
             />
             <div className="form-group" onBlur={this.handleOnBlur}>
               <textarea

@@ -48,12 +48,12 @@ class Board extends Component {
     ]
   };
 
-  handleDelete = cardId => {
+  handleDeleteCard = cardId => {
     const cards = this.state.cards.filter(c => c.id !== cardId);
     this.setState({ cards });
   };
 
-  handleEdit = (content, cardId) => {
+  handleEditCard = (content, cardId) => {
     const cards = [...this.state.cards];
     for (let id in cards) {
       if (Number(id) === cardId) {
@@ -63,17 +63,28 @@ class Board extends Component {
     this.setState({ cards });
   };
 
-  createCard = listName => {
+  handleCreateCard = listName => {
     const cards = [...this.state.cards];
     const newCard = { id: cards.length, list: listName, content: "" };
     cards.push(newCard);
     this.setState({ cards });
   };
 
-  deleteList = listName => {
+  handleDeleteList = listName => {
     const lists = this.state.lists.filter(l => l.name !== listName);
     this.setState({ lists });
     console.log(this.state.lists);
+  };
+
+  handleAddList = () => {
+    const lists = [...this.state.lists];
+    let listName = prompt(
+      "Please enter the name of the new list.",
+      "List name"
+    );
+    const list = { id: lists.length, name: listName };
+    lists.push(list);
+    this.setState({ lists });
   };
 
   renderList = list => {
@@ -85,10 +96,10 @@ class Board extends Component {
         key={list.id}
         name={list.name}
         cards={filtered_cards}
-        onDelete={this.handleDelete}
-        onEdit={this.handleEdit}
-        createCard={this.createCard}
-        deleteList={this.deleteList}
+        onDeleteCard={this.handleDeleteCard}
+        onEditCard={this.handleEditCard}
+        onCreateCard={this.handleCreateCard}
+        onDeleteList={this.handleDeleteList}
       />
     );
   };
@@ -97,7 +108,16 @@ class Board extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <h1>Kanban board</h1>
+          <h1>
+            Kanban board
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.handleAddList}
+            >
+              Add a list...
+            </button>
+          </h1>
           <div className="row">{this.state.lists.map(this.renderList)}</div>
         </div>
       </React.Fragment>

@@ -8,19 +8,18 @@ class List extends Component {
         key={card.id}
         content={card.content}
         id={card.id}
-        onDelete={this.props.onDelete}
-        onEdit={this.props.onEdit}
+        onDeleteCard={this.props.onDeleteCard}
+        onEditCard={this.props.onEditCard}
       />
     ));
   };
 
-  handleOnClick = () => {
-    this.props.createCard(this.props.name);
+  handleOnClickAddCard = () => {
+    this.props.onCreateCard(this.props.name);
   };
 
   handleOnClickList = () => {
-    console.log("HELLO");
-    this.props.deleteList(this.props.name);
+    this.props.onDeleteList(this.props.name);
   };
 
   render() {
@@ -37,7 +36,7 @@ class List extends Component {
         <button
           type="button"
           className="btn btn-info btn-sm"
-          onClick={this.handleOnClick}
+          onClick={this.handleOnClickAddCard}
         >
           Add a card...
         </button>

@@ -106,6 +106,16 @@ textarea {
   background-color: #eaafc8;
 }
 
+.btn.btn-primary {
+  margin-left: 15px;
+  font-size: 1rem;
+  padding: 8px;
+  opacity: 0.7;
+}
+.btn.btn-primary:hover {
+  opacity: 1;
+}
+
 .form-group {
   margin: 0;
   font-size: 0.8rem;
