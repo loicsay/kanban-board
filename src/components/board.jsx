@@ -9,6 +9,12 @@ class Board extends Component {
       { id: 2, list: "Current", content: "card 2" },
       { id: 3, list: "Completed", content: "card 3" },
       { id: 4, list: "Teams", content: "card 4" }
+    ],
+    lists: [
+      { id: 0, name: "Teams" },
+      { id: 1, name: "Priorities" },
+      { id: 2, name: "Current" },
+      { id: 3, name: "Completed" }
     ]
   };
 
@@ -17,11 +23,15 @@ class Board extends Component {
     this.setState({ cards });
   };
 
-  handleEdit = cardId => {
-    const text = String(prompt());
+  handleEdit = (content, cardId) => {
     const cards = this.state.cards;
-    cards[cardId].content = text;
-    this.setState({ cards });
+    for (let id in cards) {
+      if (Number(id) === cardId) {
+        cards[id].content = content;
+      }
+    }
+    this.setState(cards); 
+    console.log(this.state);
   };
 
   render() {
@@ -30,38 +40,15 @@ class Board extends Component {
         <div className="container">
           <h1>Board</h1>
           <div className="row">
-            <div className="col-sm">
+            {this.state.lists.map(list => (
               <List
-                name={"Teams"}
+                key={list.id}
+                name={list.name}
                 cards={this.state.cards}
                 onDelete={this.handleDelete}
                 onEdit={this.handleEdit}
               />
-            </div>
-            <div className="col-sm">
-              <List
-                name={"Priorities"}
-                cards={this.state.cards}
-                onDelete={this.handleDelete}
-                onEdit={this.handleEdit}
-              />
-            </div>
-            <div className="col-sm">
-              <List
-                name={"Current"}
-                cards={this.state.cards}
-                onDelete={this.handleDelete}
-                onEdit={this.handleEdit}
-              />
-            </div>
-            <div className="col-sm">
-              <List
-                name={"Completed"}
-                cards={this.state.cards}
-                onDelete={this.handleDelete}
-                onEdit={this.handleEdit}
-              />
-            </div>
+            ))}
           </div>
         </div>
       </React.Fragment>

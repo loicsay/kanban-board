@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 
 class Card extends Component {
+
+  handleOnBlur = (e) => {
+    this.props.onEdit(e.target.value, this.props.id);
+  }
+
   render() {
     return (
       <>
         <div className="card">
           <div className="card-body">
-            <p className="card-text">{this.props.content}</p>
+            <input
+              type="text"
+              className="form-control"
+              onBlur={this.handleOnBlur}
+              defaultValue={this.props.content}
+            />
             <button
               className="btn-danger btn-sm"
               onClick={() => this.props.onDelete(this.props.id)}
             >
               x
             </button>
-            <button className="btn-primary btn-sm"
-            onClick={()=>this.props.onEdit(this.props.id)}>Edit</button>
           </div>
         </div>
       </>
     );
   }
 }
-
 export default Card;

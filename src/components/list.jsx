@@ -8,16 +8,18 @@ class List extends Component {
     );
     return (
       <>
-        <h4>{this.props.name}</h4>
-        {filtered_cards.map(card => (
-          <Card
-            key={card.id}
-            content={card.content}
-            id={card.id}
-            onDelete={this.props.onDelete}
-            onEdit={this.props.onEdit}
-          />
-        ))}
+        <div className="col-sm">
+          <h4>{this.props.name}</h4>
+          {filtered_cards.map(card => (
+            <Card
+              key={card.id}
+              content={card.content}
+              id={card.id}
+              onDelete={this.props.onDelete}
+              onEdit={this.props.onEdit}
+            />
+          ))}
+        </div>
       </>
     );
   }
