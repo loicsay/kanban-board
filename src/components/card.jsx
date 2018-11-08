@@ -11,7 +11,7 @@ class Card extends Component {
               className="btn-danger btn-sm"
               onClick={() => this.props.onDelete(this.props.id)}
             >
-              Delete
+              x
             </button>
             <button className="btn-primary btn-sm"
             onClick={()=>this.props.onEdit(this.props.id)}>Edit</button>

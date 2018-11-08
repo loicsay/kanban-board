@@ -6,8 +6,8 @@ class Board extends Component {
     cards: [
       { id: 0, list: "Teams", content: "card 0" },
       { id: 1, list: "Priorities", content: "card 1" },
-      { id: 2, list: "Current Projects", content: "card 2" },
-      { id: 3, list: "Completed Projects", content: "card 3" },
+      { id: 2, list: "Current", content: "card 2" },
+      { id: 3, list: "Completed", content: "card 3" },
       { id: 4, list: "Teams", content: "card 4" }
     ]
   };
@@ -48,7 +48,7 @@ class Board extends Component {
             </div>
             <div className="col-sm">
               <List
-                name={"Current Projects"}
+                name={"Current"}
                 cards={this.state.cards}
                 onDelete={this.handleDelete}
                 onEdit={this.handleEdit}
@@ -56,7 +56,7 @@ class Board extends Component {
             </div>
             <div className="col-sm">
               <List
-                name={"Completed Projects"}
+                name={"Completed"}
                 cards={this.state.cards}
                 onDelete={this.handleDelete}
                 onEdit={this.handleEdit}
