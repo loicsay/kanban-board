@@ -3,6 +3,7 @@ import List from "./List";
 
 class Board extends Component {
   state = {
+    // Init some cards for the exemple
     cards: [
       { id: 0, list: "Teams", content: "How to use this board" },
       { id: 1, list: "Teams", content: "Product" },
@@ -63,11 +64,14 @@ class Board extends Component {
   };
 
   renderList = list => {
+    const filtered_cards = this.state.cards.filter(
+      card => card.list === list.name
+    );
     return (
       <List
         key={list.id}
         name={list.name}
-        cards={this.state.cards}
+        cards={filtered_cards}
         onDelete={this.handleDelete}
         onEdit={this.handleEdit}
       />

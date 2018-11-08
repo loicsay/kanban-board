@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Card from "./Card";
 
 class List extends Component {
-  renderCard = card => {
-    return (
+  renderCard = cards => {
+    return cards.map(card => (
       <Card
         key={card.id}
         content={card.content}
@@ -11,17 +11,14 @@ class List extends Component {
         onDelete={this.props.onDelete}
         onEdit={this.props.onEdit}
       />
-    );
+    ));
   };
 
   render() {
-    const filtered_cards = this.props.cards.filter(
-      card => card.list === this.props.name
-    );
     return (
       <div className="col-sm">
         <h4>{this.props.name}</h4>
-        {filtered_cards.map(this.renderCard)}
+        {this.renderCard(this.props.cards)}
         <button type="button" className="btn btn-info btn-sm">
           +
         </button>
