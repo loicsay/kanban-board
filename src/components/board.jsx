@@ -50,7 +50,7 @@ class Board extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <h1>Board</h1>
+          <h1>Kanban board</h1>
           <div className="row">
             {this.state.lists.map(list => (
               <List

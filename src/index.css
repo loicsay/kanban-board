@@ -6,6 +6,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #654ea3; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #eaafc8,
+    #654ea3
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #eaafc8,
+    #654ea3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 code {
@@ -13,10 +24,18 @@ code {
     monospace;
 }
 
+h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 3rem;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
 h4 {
   height: 18px;
-  font-weight: 500;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 1rem;
   padding-left: 5px;
   overflow: auto;
   color: #192231;
@@ -36,11 +55,9 @@ textarea {
 }
 
 .col-sm {
+  margin-right: 10px;
   background-color: #e9e9e9;
-  border-style: solid;
-  border-color: white;
-  border-radius: 10px;
-  border-width: 5px;
+  border-radius: 8px;
   padding: 10px 5px 0 5px;
 }
 
@@ -58,6 +75,12 @@ textarea {
   background-color: red;
 }
 
+.btn.btn-info.btn-sm {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
 .form-group {
   margin: 0;
   font-size: 0.8rem;
@@ -68,7 +91,7 @@ textarea {
 }
 
 .form-control {
-  color: #3C3C3C;
+  color: #3c3c3c;
   font-size: 0.9rem;
   padding: 8px 4px 4px 4px;
   display: inline-block;

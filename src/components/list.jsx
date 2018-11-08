@@ -7,20 +7,21 @@ class List extends Component {
       card => card.list === this.props.name
     );
     return (
-      <>
-        <div className="col-sm">
-          <h4>{this.props.name}</h4>
-          {filtered_cards.map(card => (
-            <Card
-              key={card.id}
-              content={card.content}
-              id={card.id}
-              onDelete={this.props.onDelete}
-              onEdit={this.props.onEdit}
-            />
-          ))}
-        </div>
-      </>
+      <div className="col-sm">
+        <h4>{this.props.name}</h4>
+        {filtered_cards.map(card => (
+          <Card
+            key={card.id}
+            content={card.content}
+            id={card.id}
+            onDelete={this.props.onDelete}
+            onEdit={this.props.onEdit}
+          />
+        ))}
+        <button type="button" className="btn btn-info btn-sm">
+          +
+        </button>
+      </div>
     );
   }
 }
