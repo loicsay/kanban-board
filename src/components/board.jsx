@@ -60,7 +60,14 @@ class Board extends Component {
         cards[id].content = content;
       }
     }
-    this.setState(cards);
+    this.setState({ cards });
+  };
+
+  createCard = listName => {
+    const cards = [...this.state.cards];
+    const newCard = { id: cards.length, list: listName, content: "" };
+    cards.push(newCard);
+    this.setState({ cards });
   };
 
   renderList = list => {
@@ -74,6 +81,7 @@ class Board extends Component {
         cards={filtered_cards}
         onDelete={this.handleDelete}
         onEdit={this.handleEdit}
+        createCard={this.createCard}
       />
     );
   };
