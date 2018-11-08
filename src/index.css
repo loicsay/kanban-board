@@ -22,12 +22,17 @@ h4 {
   color: #192231;
 }
 
+textarea {
+  border: none;
+  outline: none;
+}
+
 .card {
   margin-bottom: 5px;
 }
 
 .card-body {
-  padding: 10px;
+  padding: 8px;
 }
 
 .col-sm {
@@ -39,13 +44,35 @@ h4 {
   padding: 10px 5px 0 5px;
 }
 
-.card-text {
-  font-size: 0.9rem;
-  width: 100%;
-  word-break: break-all;
-  color: #3C3C3C;
+.btn-danger.btn-sm {
+  margin: 0;
+  padding: 0;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
 }
 
-.btn-danger.btn-sm {
-  margin-right: 10px;
+.btn-danger.btn-sm:hover {
+  background-color: red;
+}
+
+.form-group {
+  margin: 0;
+  font-size: 0.8rem;
+  border-width: 0px;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+}
+
+.form-control {
+  color: #3C3C3C;
+  font-size: 0.9rem;
+  padding: 8px 4px 4px 4px;
+  display: inline-block;
+  border: none;
+  outline: none;
+  resize: none;
 }
