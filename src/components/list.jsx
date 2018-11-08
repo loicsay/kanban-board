@@ -16,15 +16,30 @@ class List extends Component {
 
   handleOnClick = () => {
     this.props.createCard(this.props.name);
-  }
+  };
+
+  handleOnClickList = () => {
+    console.log("HELLO");
+    this.props.deleteList(this.props.name);
+  };
 
   render() {
     return (
       <div className="col-sm">
-        <h4>{this.props.name}</h4>
+        <div className="listHeader">
+          <h4>{this.props.name}</h4>
+          <button
+            className="btn-danger btn "
+            onClick={this.handleOnClickList}
+          />
+        </div>
         {this.renderCard(this.props.cards)}
-        <button type="button" className="btn btn-info btn-sm" onClick={this.handleOnClick}>
-          +
+        <button
+          type="button"
+          className="btn btn-info btn-sm"
+          onClick={this.handleOnClick}
+        >
+          Add a card...
         </button>
       </div>
     );

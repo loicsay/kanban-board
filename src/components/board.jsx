@@ -70,6 +70,12 @@ class Board extends Component {
     this.setState({ cards });
   };
 
+  deleteList = listName => {
+    const lists = this.state.lists.filter(l => l.name !== listName);
+    this.setState({ lists });
+    console.log(this.state.lists);
+  };
+
   renderList = list => {
     const filtered_cards = this.state.cards.filter(
       card => card.list === list.name
@@ -82,6 +88,7 @@ class Board extends Component {
         onDelete={this.handleDelete}
         onEdit={this.handleEdit}
         createCard={this.createCard}
+        deleteList={this.deleteList}
       />
     );
   };
