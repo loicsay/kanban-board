@@ -32,9 +32,9 @@ You will also see any lint errors in the console.
 
 ## Built with
 
-*[React](https://github.com/facebook/react) - Facebook's JavaScript library
+* [React](https://github.com/facebook/react) - Facebook's JavaScript library
 
-*[Bootstrap](https://getbootstrap.com/) - Open source toolkit (HTML, CSS, JS)
+* [Bootstrap](https://getbootstrap.com/) - Open source toolkit (HTML, CSS, JS)
 
 ## Author
 
