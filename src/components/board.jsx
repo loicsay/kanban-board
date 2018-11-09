@@ -5,13 +5,13 @@ class Board extends Component {
   state = {
     // Init some cards for the exemple
     cards: [
-      { id: 0, list: "Teams", content: "How to use this board" },
-      { id: 1, list: "Teams", content: "Product" },
-      { id: 2, list: "Teams", content: "Marketing" },
-      { id: 3, list: "Teams", content: "Sales" },
-      { id: 4, list: "Teams", content: "Support" },
-      { id: 5, list: "Teams", content: "People" },
-      { id: 6, list: "Teams", content: "IT" },
+      { id: 0, list: "Backlog", content: "Buy coffee for everyone" },
+      { id: 1, list: "Backlog", content: "Contact Kaneoh" },
+      { id: 2, list: "Backlog", content: "Improve website UI" },
+      { id: 3, list: "Backlog", content: "Sales appointment" },
+      { id: 4, list: "Backlog", content: "Hire a new manager" },
+      { id: 5, list: "Backlog", content: "Create a new logo" },
+      { id: 6, list: "Backlog", content: "Appointment with interns" },
       {
         id: 7,
         list: "Priorities",
@@ -41,7 +41,7 @@ class Board extends Component {
       { id: 17, list: "Completed", content: "Update Help Documentation" }
     ],
     lists: [
-      { id: 0, name: "Teams" },
+      { id: 0, name: "Backlog" },
       { id: 1, name: "Priorities" },
       { id: 2, name: "Current" },
       { id: 3, name: "Completed" }

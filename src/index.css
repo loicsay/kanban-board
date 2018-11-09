@@ -62,6 +62,7 @@ textarea {
   margin-bottom: 10px;
   border-radius: 8px;
   padding: 10px 5px 0 5px;
+  height: fit-content;
 }
 
 .btn-danger.btn-sm {
@@ -74,9 +75,11 @@ textarea {
   display: block;
   float: right;
   border: none;
+  background-color: #ffa500;
+  opacity: 0.7;
 }
 .btn-danger.btn-sm:hover {
-  background-color: red;
+  opacity: 1;
 }
 
 .btn-danger.btn {
@@ -110,7 +113,7 @@ textarea {
   margin-left: 15px;
   font-size: 1rem;
   padding: 8px;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 .btn.btn-primary:hover {
   opacity: 1;
