@@ -77,11 +77,7 @@ class Board extends Component {
 
   handleCreateList = () => {
     const lists = [...this.state.lists];
-    let listName = prompt(
-      "Please enter the name of the new list.",
-      "List name"
-    );
-    const list = { id: lists.length, name: listName };
+    const list = { id: lists.length, name: "" };
     lists.push(list);
     this.setState({ lists });
   };
@@ -93,12 +89,12 @@ class Board extends Component {
       if (list.name === listName) {
         list.name = content;
       }
-    };
+    }
     for (let card of cards) {
       if (card.list === listName) {
         card.list = content;
       }
-    };
+    }
     this.setState({ lists });
     console.log(this.state.lists);
     console.log(this.state.cards);
