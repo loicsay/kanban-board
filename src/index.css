@@ -47,6 +47,12 @@ textarea {
   outline: none;
 }
 
+.container {
+  max-width: 1080px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
 .card {
   margin-bottom: 5px;
 }
