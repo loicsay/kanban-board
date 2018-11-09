@@ -22,11 +22,20 @@ class List extends Component {
     this.props.onDeleteList(this.props.name);
   };
 
+  handleOnBlur = e => {
+    this.props.onEditList(e.target.value, this.props.name);
+  };
+
   render() {
     return (
       <div className="col-sm">
         <div className="listHeader">
-          <h4>{this.props.name}</h4>
+            <textarea
+              className="form-control listTitle"
+              rows="2"
+              defaultValue={this.props.name}
+              onBlur={this.handleOnBlur}
+            />
           <button
             className="btn-danger btn "
             onClick={this.handleOnClickList}

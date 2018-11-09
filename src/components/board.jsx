@@ -73,7 +73,6 @@ class Board extends Component {
   handleDeleteList = listName => {
     const lists = this.state.lists.filter(l => l.name !== listName);
     this.setState({ lists });
-    console.log(this.state.lists);
   };
 
   handleCreateList = () => {
@@ -85,6 +84,24 @@ class Board extends Component {
     const list = { id: lists.length, name: listName };
     lists.push(list);
     this.setState({ lists });
+  };
+
+  handleEditList = (content, listName) => {
+    const lists = [...this.state.lists];
+    const cards = [...this.state.cards];
+    for (let list of lists) {
+      if (list.name === listName) {
+        list.name = content;
+      }
+    };
+    for (let card of cards) {
+      if (card.list === listName) {
+        card.list = content;
+      }
+    };
+    this.setState({ lists });
+    console.log(this.state.lists);
+    console.log(this.state.cards);
   };
 
   renderList = list => {
@@ -100,6 +117,7 @@ class Board extends Component {
         onEditCard={this.handleEditCard}
         onCreateCard={this.handleCreateCard}
         onDeleteList={this.handleDeleteList}
+        onEditList={this.handleEditList}
       />
     );
   };
