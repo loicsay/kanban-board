@@ -101,10 +101,9 @@ textarea {
   font-size: 0.8rem;
   margin-top: 5px;
   margin-bottom: 15px;
-  margin-left: 1px;
+  margin-left: 2px;
   border: none;
 }
-
 .btn.btn-info.btn-sm:hover {
   background-color: #eaafc8;
 }

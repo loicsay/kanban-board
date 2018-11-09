@@ -76,7 +76,7 @@ class Board extends Component {
     console.log(this.state.lists);
   };
 
-  handleAddList = () => {
+  handleCreateList = () => {
     const lists = [...this.state.lists];
     let listName = prompt(
       "Please enter the name of the new list.",
@@ -113,7 +113,7 @@ class Board extends Component {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={this.handleAddList}
+              onClick={this.handleCreateList}
             >
               Add a list...
             </button>
