@@ -20,13 +20,15 @@ You will also see any lint errors in the console.
 
 * **Add a list** : You can add a list (and give it a name) to the Kanban.
 
-* **Delete a list** : You can delete a list to the Kanban by clicking on the button at the top of it. This action will not delete the cards inside this list.
+* **Delete a list** : You can delete a list of the board by clicking on the button at the top of it. This action will not delete the cards inside this list.
+
+* **Edit a List name** : You can edit a list name by clicking on the title of this one.
 
 * **Add a card** : You can add a card to a list by clicking on the button at the bottom of it. This will create an empty card in the correspoding list.
 
-* **Edit a card** : You can edit the content of the card by clicking on it.
-
 * **Delete a card** : Cards can be deleted just like lists, by clicking on the corresponding button at the top of it.
+
+* **Edit a card** : You can edit the content of the card by clicking on it.
 
 ### 
 
