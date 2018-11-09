@@ -30,12 +30,12 @@ class List extends Component {
     return (
       <div className="col-sm">
         <div className="listHeader">
-            <textarea
-              className="form-control listTitle"
-              rows="2"
-              defaultValue={this.props.name}
-              onBlur={this.handleOnBlur}
-            />
+          <textarea
+            className="form-control listTitle"
+            rows="2"
+            defaultValue={this.props.name}
+            onBlur={this.handleOnBlur}
+          />
           <button
             className="btn-danger btn "
             onClick={this.handleOnClickList}

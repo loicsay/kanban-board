@@ -7,21 +7,21 @@ class Card extends Component {
 
   render() {
     return (
-        <div className="card">
-          <div className="card-body">
-            <button
-              className="btn-danger btn-sm"
-              onClick={() => this.props.onDeleteCard(this.props.id)}
+      <div className="card">
+        <div className="card-body">
+          <button
+            className="btn-danger btn-sm"
+            onClick={() => this.props.onDeleteCard(this.props.id)}
+          />
+          <div className="form-group" onBlur={this.handleOnBlur}>
+            <textarea
+              className="form-control"
+              rows="2"
+              defaultValue={this.props.content}
             />
-            <div className="form-group" onBlur={this.handleOnBlur}>
-              <textarea
-                className="form-control"
-                rows="2"
-                defaultValue={this.props.content}
-              />
-            </div>
           </div>
         </div>
+      </div>
     );
   }
 }
