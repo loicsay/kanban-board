@@ -5,9 +5,13 @@ class Card extends Component {
     this.props.onEditCard(e.target.value, this.props.id);
   };
 
+  handleOnDragStart = e => {
+    this.props.onDragStart(e, this.props.id);
+  };
+
   render() {
     return (
-      <div className="card">
+      <div className="card" draggable onDragStart={this.handleOnDragStart}>
         <div className="card-body">
           <button
             className="btn-danger btn-sm"

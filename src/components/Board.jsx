@@ -96,8 +96,24 @@ class Board extends Component {
       }
     }
     this.setState({ lists });
+    /* Why is it the same ?  
     console.log(this.state.lists);
     console.log(this.state.cards);
+    */
+  };
+
+  handleOnDragStart = (e, id) => {
+    e.dataTransfer.setData("id", id);
+  };
+
+  handleOnDrop = (e, name) => {
+    let cards = this.state.cards;
+    for (let i = 0; i < cards.length; i++) {
+      if (Number(cards[i].id) === Number(e.dataTransfer.getData("id"))) {
+        cards[i].list = name;
+      }
+    }
+    this.setState({ cards });
   };
 
   renderList = list => {
@@ -114,6 +130,8 @@ class Board extends Component {
         onCreateCard={this.handleCreateCard}
         onDeleteList={this.handleDeleteList}
         onEditList={this.handleEditList}
+        onDragStart={this.handleOnDragStart}
+        onDrop={this.handleOnDrop}
       />
     );
   };

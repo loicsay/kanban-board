@@ -6,6 +6,7 @@ class List extends Component {
     return cards.map(card => (
       <Card
         key={card.id}
+        onDragStart={this.props.onDragStart}
         content={card.content}
         id={card.id}
         onDeleteCard={this.props.onDeleteCard}
@@ -26,9 +27,21 @@ class List extends Component {
     this.props.onEditList(e.target.value, this.props.name);
   };
 
+  handleOnDragOver = e => {
+    e.preventDefault();
+  };
+
+  handleOnDrop = (e) => {
+    this.props.onDrop(e, this.props.name);
+  }
+
   render() {
     return (
-      <div className="col-sm">
+      <div
+        className="col-sm"
+        onDragOver={this.handleOnDragOver}
+        onDrop={this.handleOnDrop}
+      >
         <div className="listHeader">
           <textarea
             className="form-control listTitle"
