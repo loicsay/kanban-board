@@ -30,7 +30,7 @@ You will also see any lint errors in the console.
 
 * **Edit a card** : You can edit the content of the card by clicking on it.
 
-* **Drag & Drop** : You can drag and drop cards between lists.
+* **Drag & Drop** : You can drag and drop cards between lists & lists between them.
 
 ### 
 
