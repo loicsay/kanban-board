@@ -100,10 +100,10 @@ class Board extends Component {
       }
     ],
     lists: [
-      { id: 0, name: "Backlog", order: 1 },
-      { id: 1, name: "Priorities", order: 2 },
-      { id: 2, name: "Current", order: 3 },
-      { id: 3, name: "Completed", order: 4 }
+      { id: 0, name: "Backlog", order: 1, isDragged: false },
+      { id: 1, name: "Priorities", order: 2, isDragged: false },
+      { id: 2, name: "Current", order: 3, isDragged: false },
+      { id: 3, name: "Completed", order: 4, isDragged: false }
     ],
     dragType: "none"
   };
@@ -202,25 +202,40 @@ class Board extends Component {
     this.setState({ cards, dragType });
   };
 
-  handleOnDragListStart = (e, name) => {
+  handleOnDragListStart = (e, name, id) => {
     if (e.dataTransfer.getData("id") === "") {
+      let lists = [...this.state.lists];
+      for (let i = 0; i < lists.length; i++) {
+        if (lists[i].name === name) {
+          lists[i].isDragged = true;
+        }
+      }
       e.dataTransfer.setData("name", name);
       let dragType = "list";
-      this.setState({ dragType });
+      this.setState({ dragType, lists });
     }
   };
 
-  handleOnDragListEnd = (e, id) => {
+  handleOnDragListEnd = (e, name) => {
+    let lists = [...this.state.lists];
+    for (let i = 0; i < lists.length; i++) {
+      if (lists[i].name === name) {
+        lists[i].isDragged = false;
+      }
+    }
     let dragType = "none";
     e.dataTransfer.clearData();
     this.setState({ dragType });
   };
 
-  handleOnDropList = (e, listDropped) => {
+  handleOnDropList = (e, name) => {
     let lists = [...this.state.lists];
     let list1, list2;
     for (let i = 0; i < lists.length; i++) {
-      if (lists[i].name === listDropped) {
+      if (lists[i].name === name) {
+        lists[i].isDragged = false;
+      }
+      if (lists[i].name === name) {
         list1 = lists[i];
       }
       if (lists[i].name === String(e.dataTransfer.getData("name"))) {
@@ -242,7 +257,9 @@ class Board extends Component {
     return (
       <List
         key={list.id}
+        id={list.id}
         name={list.name}
+        isDragged={list.isDragged}
         cards={filtered_cards}
         dragType={this.state.dragType}
         onDeleteCard={this.handleDeleteCard}
@@ -261,7 +278,6 @@ class Board extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <React.Fragment>
         <div className="container">

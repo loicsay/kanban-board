@@ -34,11 +34,11 @@ class List extends Component {
   };
 
   handleOnDragListStart = e => {
-    this.props.onDragListStart(e, this.props.name);
+    this.props.onDragListStart(e, this.props.name, this.props.id);
   };
 
   handleOnDragEnd = e => {
-    this.props.onDragListEnd(e);
+    this.props.onDragListEnd(e, this.props.name);
   };
 
   handleOnDrop = e => {
@@ -59,6 +59,7 @@ class List extends Component {
         onDrop={this.handleOnDrop}
         onDragStart={this.handleOnDragListStart}
         onDragEnd={this.handleOnDragEnd}
+        style={this.props.isDragged ? { opacity: 0.3 } : { opacity: 1 }}
       >
         <div className="listHeader">
           <textarea
