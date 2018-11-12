@@ -70,6 +70,7 @@ textarea {
   border-radius: 8px;
   padding: 10px 5px 0 5px;
   height: fit-content;
+  cursor: pointer;
 }
 
 .btn-danger.btn-sm {

@@ -6,8 +6,8 @@ class List extends Component {
     return cards.map(card => (
       <Card
         key={card.id}
-        onDragStart={this.props.onDragStart}
-        onDragEnd={this.props.onDragEnd}
+        onDragCardStart={this.props.onDragCardStart}
+        onDragCardEnd={this.props.onDragCardEnd}
         content={card.content}
         id={card.id}
         onDeleteCard={this.props.onDeleteCard}
@@ -33,16 +33,32 @@ class List extends Component {
     e.preventDefault();
   };
 
+  handleOnDragListStart = e => {
+    this.props.onDragListStart(e, this.props.name);
+  };
+
+  handleOnDragEnd = e => {
+    this.props.onDragListEnd(e);
+  };
+
   handleOnDrop = e => {
-    this.props.onDrop(e, this.props.name);
+    if (this.props.dragType === "card") {
+      this.props.onDropCard(e, this.props.name);
+    }
+    if (this.props.dragType === "list") {
+      this.props.onDropList(e, this.props.name);
+    }
   };
 
   render() {
     return (
       <div
         className="col-sm"
+        draggable
         onDragOver={this.handleOnDragOver}
         onDrop={this.handleOnDrop}
+        onDragStart={this.handleOnDragListStart}
+        onDragEnd={this.handleOnDragEnd}
       >
         <div className="listHeader">
           <textarea

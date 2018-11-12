@@ -6,12 +6,12 @@ class Card extends Component {
   };
 
   handleOnDragStart = e => {
-    this.props.onDragStart(e, this.props.id);
+    this.props.onDragCardStart(e, this.props.id);
   };
 
   handleOnDragEnd = e => {
-    this.props.onDragEnd(e, this.props.id);
-  }
+    this.props.onDragCardEnd(e, this.props.id);
+  };
 
   render() {
     return (

@@ -104,7 +104,19 @@ class Board extends Component {
       { id: 1, name: "Priorities", order: 2 },
       { id: 2, name: "Current", order: 3 },
       { id: 3, name: "Completed", order: 4 }
-    ]
+    ],
+    dragType: "none"
+  };
+
+  sortLists = lists => {
+    lists.sort((a, b) => {
+      if (Number(a.order) > Number(b.order)) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    return lists;
   };
 
   handleDeleteCard = cardId => {
@@ -161,20 +173,23 @@ class Board extends Component {
     */
   };
 
-  handleOnDragStart = (e, id) => {
+  handleOnDragCardStart = (e, id) => {
     e.dataTransfer.setData("id", id);
-    let cards = this.state.cards;
+    let cards = [...this.state.cards];
     cards[id].isDragged = true;
-    this.setState({ cards });
+    let dragType = "card";
+    this.setState({ cards, dragType });
   };
 
-  handleOnDragEnd = (e, id) => {
+  handleOnDragCardEnd = (e, id) => {
     let cards = this.state.cards;
     cards[id].isDragged = false;
-    this.setState({ cards });
+    let dragType = "none";
+    e.dataTransfer.clearData();
+    this.setState({ cards, dragType });
   };
 
-  handleOnDrop = (e, name) => {
+  handleOnDropCard = (e, name) => {
     let cards = this.state.cards;
     for (let i = 0; i < cards.length; i++) {
       if (Number(cards[i].id) === Number(e.dataTransfer.getData("id"))) {
@@ -182,7 +197,42 @@ class Board extends Component {
         cards[i].isDragged = false;
       }
     }
-    this.setState({ cards });
+    let dragType = "none";
+    e.dataTransfer.clearData();
+    this.setState({ cards, dragType });
+  };
+
+  handleOnDragListStart = (e, name) => {
+    if (e.dataTransfer.getData("id") === "") {
+      e.dataTransfer.setData("name", name);
+      let dragType = "list";
+      this.setState({ dragType });
+    }
+  };
+
+  handleOnDragListEnd = (e, id) => {
+    let dragType = "none";
+    e.dataTransfer.clearData();
+    this.setState({ dragType });
+  };
+
+  handleOnDropList = (e, listDropped) => {
+    let lists = [...this.state.lists];
+    let list1, list2;
+    for (let i = 0; i < lists.length; i++) {
+      if (lists[i].name === listDropped) {
+        list1 = lists[i];
+      }
+      if (lists[i].name === String(e.dataTransfer.getData("name"))) {
+        list2 = lists[i];
+      }
+    }
+    let orderSave = list1.order;
+    list1.order = list2.order;
+    list2.order = orderSave;
+    e.dataTransfer.clearData();
+    this.sortLists(lists);
+    this.setState({ lists });
   };
 
   renderList = list => {
@@ -194,19 +244,24 @@ class Board extends Component {
         key={list.id}
         name={list.name}
         cards={filtered_cards}
+        dragType={this.state.dragType}
         onDeleteCard={this.handleDeleteCard}
         onEditCard={this.handleEditCard}
         onCreateCard={this.handleCreateCard}
         onDeleteList={this.handleDeleteList}
         onEditList={this.handleEditList}
-        onDragStart={this.handleOnDragStart}
-        onDragEnd={this.handleOnDragEnd}
-        onDrop={this.handleOnDrop}
+        onDragCardStart={this.handleOnDragCardStart}
+        onDragCardEnd={this.handleOnDragCardEnd}
+        onDropCard={this.handleOnDropCard}
+        onDragListStart={this.handleOnDragListStart}
+        onDragListEnd={this.handleOnDragListEnd}
+        onDropList={this.handleOnDropList}
       />
     );
   };
 
   render() {
+    console.log(this.state);
     return (
       <React.Fragment>
         <div className="container">
