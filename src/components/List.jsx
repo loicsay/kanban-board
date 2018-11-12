@@ -7,10 +7,12 @@ class List extends Component {
       <Card
         key={card.id}
         onDragStart={this.props.onDragStart}
+        onDragEnd={this.props.onDragEnd}
         content={card.content}
         id={card.id}
         onDeleteCard={this.props.onDeleteCard}
         onEditCard={this.props.onEditCard}
+        isDragged={card.isDragged}
       />
     ));
   };
@@ -31,9 +33,9 @@ class List extends Component {
     e.preventDefault();
   };
 
-  handleOnDrop = (e) => {
+  handleOnDrop = e => {
     this.props.onDrop(e, this.props.name);
-  }
+  };
 
   render() {
     return (

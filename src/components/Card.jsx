@@ -9,9 +9,19 @@ class Card extends Component {
     this.props.onDragStart(e, this.props.id);
   };
 
+  handleOnDragEnd = e => {
+    this.props.onDragEnd(e, this.props.id);
+  }
+
   render() {
     return (
-      <div className="card" draggable onDragStart={this.handleOnDragStart}>
+      <div
+        className="card"
+        style={this.props.isDragged ? { opacity: 0.3 } : { opacity: 1 }}
+        draggable
+        onDragStart={this.handleOnDragStart}
+        onDragEnd={this.handleOnDragEnd}
+      >
         <div className="card-body">
           <button
             className="btn-danger btn-sm"
