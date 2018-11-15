@@ -13,22 +13,16 @@ class Board extends Component {
     return lists;
   };
 
+  handleCreateCard = listName => {
+    this.props.store.dispatch({ type: "ADD_CARD", listName });
+  };
+
   handleDeleteCard = cardId => {
-    const cards = this.props.store
-      .getState()
-      .cards.filter(c => c.id !== cardId);
-    this.setState({ cards });
+    this.props.store.dispatch({ type: "DELETE_CARD", cardId });
   };
 
   handleEditCard = (content, cardId) => {
-    console.log(this.props.store.getState());
     this.props.store.dispatch({ type: "EDIT_CARD", content, cardId });
-    console.log(this.props.store.getState());
-  };
-
-  handleCreateCard = listName => {
-    this.props.store.dispatch({ type: "ADD_CARD", listName });
-    console.log(this.props.store.getState());
   };
 
   handleDeleteList = listName => {

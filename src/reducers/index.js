@@ -105,9 +105,10 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case "ADD_CARD":
-      let newState = { ...state };
+      newState = { ...state };
       newState.cards.push({
         id: state.cards.length,
         list: action.listName,
@@ -116,7 +117,13 @@ export default (state = initialState, action) => {
       });
       return newState;
     case "EDIT_CARD":
-      return state;
+      newState = { ...state };
+      newState.cards[action.cardId].content = action.content;
+      return newState;
+    case "DELETE_CARD":
+      newState = { ...state };
+      newState.cards = newState.cards.filter(c => c.id !== action.cardId);
+      return newState;
     default:
       return state;
   }
