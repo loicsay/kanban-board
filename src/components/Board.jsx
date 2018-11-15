@@ -2,112 +2,6 @@ import React, { Component } from "react";
 import List from "./List";
 
 class Board extends Component {
-  state = {
-    // Init some cards for the exemple
-    cards: [
-      {
-        id: 0,
-        list: "Backlog",
-        content: "Buy coffee for everyone",
-        isDragged: false
-      },
-      { id: 1, list: "Backlog", content: "Contact Kaneoh", isDragged: false },
-      {
-        id: 2,
-        list: "Backlog",
-        content: "Improve website UI",
-        isDragged: false
-      },
-      {
-        id: 3,
-        list: "Backlog",
-        content: "Sales appointment",
-        isDragged: false
-      },
-      {
-        id: 4,
-        list: "Backlog",
-        content: "Hire a new manager",
-        isDragged: false
-      },
-      {
-        id: 5,
-        list: "Backlog",
-        content: "Create a new logo",
-        isDragged: false
-      },
-      {
-        id: 6,
-        list: "Backlog",
-        content: "Appointment with interns",
-        isDragged: false
-      },
-      {
-        id: 7,
-        list: "Priorities",
-        content: "Increase sales revenu by 30% in Q3",
-        isDragged: false
-      },
-      {
-        id: 8,
-        list: "Priorities",
-        content: "Launch first international expansion",
-        isDragged: false
-      },
-      {
-        id: 9,
-        list: "Priorities",
-        content: "Test new messaging for SMB market",
-        isDragged: false
-      },
-      {
-        id: 10,
-        list: "Current",
-        content: "Website Redesign",
-        isDragged: false
-      },
-      { id: 11, list: "Current", content: "Ship iOS app", isDragged: false },
-      { id: 12, list: "Current", content: "Analytics Data", isDragged: false },
-      {
-        id: 13,
-        list: "Current",
-        content: "Increase conversion rate by 20% by Q3",
-        isDragged: false
-      },
-      {
-        id: 14,
-        list: "Current",
-        content: "Develop Engineering Blog",
-        isDragged: false
-      },
-      {
-        id: 15,
-        list: "Current",
-        content: "Brand Guidelines",
-        isDragged: false
-      },
-      {
-        id: 16,
-        list: "Completed",
-        content: "Social Media Campaign",
-        isDragged: false
-      },
-      {
-        id: 17,
-        list: "Completed",
-        content: "Update Help Documentation",
-        isDragged: false
-      }
-    ],
-    lists: [
-      { id: 0, name: "Backlog", order: 1, isDragged: false },
-      { id: 1, name: "Priorities", order: 2, isDragged: false },
-      { id: 2, name: "Current", order: 3, isDragged: false },
-      { id: 3, name: "Completed", order: 4, isDragged: false }
-    ],
-    dragType: "none"
-  };
-
   sortLists = lists => {
     lists.sort((a, b) => {
       if (Number(a.order) > Number(b.order)) {
@@ -120,42 +14,40 @@ class Board extends Component {
   };
 
   handleDeleteCard = cardId => {
-    const cards = this.state.cards.filter(c => c.id !== cardId);
+    const cards = this.props.store
+      .getState()
+      .cards.filter(c => c.id !== cardId);
     this.setState({ cards });
   };
 
   handleEditCard = (content, cardId) => {
-    const cards = [...this.state.cards];
-    for (let id in cards) {
-      if (Number(id) === cardId) {
-        cards[id].content = content;
-      }
-    }
-    this.setState({ cards });
+    console.log(this.props.store.getState());
+    this.props.store.dispatch({ type: "EDIT_CARD", content, cardId });
+    console.log(this.props.store.getState());
   };
 
   handleCreateCard = listName => {
-    const cards = [...this.state.cards];
-    const newCard = { id: cards.length, list: listName, content: "" };
-    cards.push(newCard);
-    this.setState({ cards });
+    this.props.store.dispatch({ type: "ADD_CARD", listName });
+    console.log(this.props.store.getState());
   };
 
   handleDeleteList = listName => {
-    const lists = this.state.lists.filter(l => l.name !== listName);
+    const lists = this.props.store
+      .getState()
+      .lists.filter(l => l.name !== listName);
     this.setState({ lists });
   };
 
   handleCreateList = () => {
-    const lists = [...this.state.lists];
+    const lists = [...this.props.store.getState().lists];
     const list = { id: lists.length, name: "", order: lists.length + 1 };
     lists.push(list);
     this.setState({ lists });
   };
 
   handleEditList = (content, listName) => {
-    const lists = [...this.state.lists];
-    const cards = [...this.state.cards];
+    const lists = [...this.props.store.getState().lists];
+    const cards = [...this.props.store.getState().cards];
     for (let list of lists) {
       if (list.name === listName) {
         list.name = content;
@@ -168,21 +60,21 @@ class Board extends Component {
     }
     this.setState({ lists });
     /* Why is it the same ?  
-    console.log(this.state.lists);
-    console.log(this.state.cards);
+    console.log(this.props.store.getState().lists);
+    console.log(this.props.store.getState().cards);
     */
   };
 
   handleOnDragCardStart = (e, id) => {
     e.dataTransfer.setData("id", id);
-    let cards = [...this.state.cards];
+    let cards = [...this.props.store.getState().cards];
     cards[id].isDragged = true;
     let dragType = "card";
     this.setState({ cards, dragType });
   };
 
   handleOnDragCardEnd = (e, id) => {
-    let cards = this.state.cards;
+    let cards = this.props.store.getState().cards;
     cards[id].isDragged = false;
     let dragType = "none";
     e.dataTransfer.clearData();
@@ -190,7 +82,7 @@ class Board extends Component {
   };
 
   handleOnDropCard = (e, name) => {
-    let cards = this.state.cards;
+    let cards = this.props.store.getState().cards;
     for (let i = 0; i < cards.length; i++) {
       if (Number(cards[i].id) === Number(e.dataTransfer.getData("id"))) {
         cards[i].list = name;
@@ -204,7 +96,7 @@ class Board extends Component {
 
   handleOnDragListStart = (e, name, id) => {
     if (e.dataTransfer.getData("id") === "") {
-      let lists = [...this.state.lists];
+      let lists = [...this.props.store.getState().lists];
       for (let i = 0; i < lists.length; i++) {
         if (lists[i].name === name) {
           lists[i].isDragged = true;
@@ -217,7 +109,7 @@ class Board extends Component {
   };
 
   handleOnDragListEnd = (e, name) => {
-    let lists = [...this.state.lists];
+    let lists = [...this.props.store.getState().lists];
     for (let i = 0; i < lists.length; i++) {
       if (lists[i].name === name) {
         lists[i].isDragged = false;
@@ -229,7 +121,7 @@ class Board extends Component {
   };
 
   handleOnDropList = (e, name) => {
-    let lists = [...this.state.lists];
+    let lists = [...this.props.store.getState().lists];
     let list1, list2;
     for (let i = 0; i < lists.length; i++) {
       if (lists[i].name === name) {
@@ -251,9 +143,9 @@ class Board extends Component {
   };
 
   renderList = list => {
-    const filtered_cards = this.state.cards.filter(
-      card => card.list === list.name
-    );
+    const filtered_cards = this.props.store
+      .getState()
+      .cards.filter(card => card.list === list.name);
     return (
       <List
         key={list.id}
@@ -261,7 +153,7 @@ class Board extends Component {
         name={list.name}
         isDragged={list.isDragged}
         cards={filtered_cards}
-        dragType={this.state.dragType}
+        dragType={this.props.store.getState().dragType}
         onDeleteCard={this.handleDeleteCard}
         onEditCard={this.handleEditCard}
         onCreateCard={this.handleCreateCard}
@@ -291,7 +183,9 @@ class Board extends Component {
               Add a list...
             </button>
           </h1>
-          <div className="row">{this.state.lists.map(this.renderList)}</div>
+          <div className="row">
+            {this.props.store.getState().lists.map(this.renderList)}
+          </div>
         </div>
       </React.Fragment>
     );
