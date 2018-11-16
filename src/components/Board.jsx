@@ -2,17 +2,6 @@ import React, { Component } from "react";
 import List from "./List";
 
 class Board extends Component {
-  sortLists = lists => {
-    lists.sort((a, b) => {
-      if (Number(a.order) > Number(b.order)) {
-        return 1;
-      } else {
-        return -1;
-      }
-    });
-    return lists;
-  };
-
   handleCreateCard = listName => {
     this.props.store.dispatch({ type: "ADD_CARD", listName });
   };

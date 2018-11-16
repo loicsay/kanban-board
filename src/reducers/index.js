@@ -164,6 +164,7 @@ export default (state = initialState, action) => {
       action.e.dataTransfer.setData("id", action.id);
       newState.cards[action.id].isDragged = true;
       newState.dragType = "card";
+      console.log(newState);
       return newState;
     case "ON_DRAG_CARD_END":
       newState = { ...state };
@@ -173,7 +174,6 @@ export default (state = initialState, action) => {
       return newState;
     case "ON_DROP_CARD":
       newState = { ...state };
-      action.e.dataTransfer.clearData();
       newState.dragType = "none";
       newState.cards.forEach(card => {
         if (Number(card.id) === Number(action.e.dataTransfer.getData("id"))) {
@@ -181,11 +181,12 @@ export default (state = initialState, action) => {
           card.isDragged = false;
         }
       });
+      action.e.dataTransfer.clearData();
       return newState;
     case "ON_DRAG_LIST_START":
       newState = { ...state };
-      newState.dragType = "list";
-      if (action.e.dataTransfer.getData("id") === "") {
+      if (newState.dragType === "none") {
+        newState.dragType = "list";
         newState.lists.forEach(list => {
           if (list.name === action.listName) {
             list.isDragged = true;
@@ -206,8 +207,6 @@ export default (state = initialState, action) => {
       return newState;
     case "ON_DROP_LIST":
       newState = { ...state };
-      action.e.dataTransfer.clearData();
-
       let list1, list2;
       newState.lists.forEach(list => {
         if (list.name === action.listName) {
@@ -218,10 +217,12 @@ export default (state = initialState, action) => {
           list2 = list;
         }
       });
-      let orderSave = list1.order;
-      list1.order = list2.order;
-      list2.order = orderSave;
-
+      if (action.e.dataTransfer.getData("name") !== "") {
+        action.e.dataTransfer.clearData();
+        let orderSave = list1.order;
+        list1.order = list2.order;
+        list2.order = orderSave;
+      }
       return newState;
     default:
       return state;
