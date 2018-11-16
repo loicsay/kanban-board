@@ -1,8 +1,8 @@
 # Kanban Board
 
-A basic Kanban Board built with React and Bootstrap.
+A basic Kanban Board built with React, Redux and Bootstrap.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and [Redux](https://github.com/reduxjs/redux).
 
 ## Available Scripts
 
@@ -37,6 +37,8 @@ You will also see any lint errors in the console.
 ## Built with
 
 * [React](https://github.com/facebook/react) - Facebook's JavaScript library
+
+* [Redux](https://github.com/reduxjs/redux) - Predictable state container for JavaScript apps
 
 * [Bootstrap](https://getbootstrap.com/) - Open source toolkit (HTML, CSS, JS)
 
