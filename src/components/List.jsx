@@ -34,7 +34,7 @@ class List extends Component {
   };
 
   handleOnDragListStart = e => {
-    this.props.onDragListStart(e, this.props.name, this.props.id);
+    this.props.onDragListStart(e, this.props.name);
   };
 
   handleOnDragEnd = e => {

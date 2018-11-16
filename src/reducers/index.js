@@ -107,6 +107,16 @@ const initialState = {
 export default (state = initialState, action) => {
   let newState;
   switch (action.type) {
+    case "SORT_LISTS":
+      newState = { ...state };
+      newState.lists.sort((a, b) => {
+        if (Number(a.order) > Number(b.order)) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      return newState;
     case "ADD_CARD":
       newState = { ...state };
       newState.cards.push({
@@ -123,6 +133,95 @@ export default (state = initialState, action) => {
     case "DELETE_CARD":
       newState = { ...state };
       newState.cards = newState.cards.filter(c => c.id !== action.cardId);
+      return newState;
+    case "ADD_LIST":
+      newState = { ...state };
+      newState.lists.push({
+        id: newState.lists.length,
+        name: "",
+        order: newState.lists.length + 1
+      });
+      return newState;
+    case "EDIT_LIST":
+      newState = { ...state };
+      newState.lists.forEach(list => {
+        if (list.name === action.listName) {
+          list.name = action.newListName;
+        }
+      });
+      newState.cards.forEach(card => {
+        if (card.list === action.listName) {
+          card.list = action.newListName;
+        }
+      });
+      return newState;
+    case "DELETE_LIST":
+      newState = { ...state };
+      newState.lists = newState.lists.filter(l => l.name !== action.listName);
+      return newState;
+    case "ON_DRAG_CARD_START":
+      newState = { ...state };
+      action.e.dataTransfer.setData("id", action.id);
+      newState.cards[action.id].isDragged = true;
+      newState.dragType = "card";
+      return newState;
+    case "ON_DRAG_CARD_END":
+      newState = { ...state };
+      action.e.dataTransfer.clearData();
+      newState.cards[action.id].isDragged = false;
+      newState.dragType = "none";
+      return newState;
+    case "ON_DROP_CARD":
+      newState = { ...state };
+      action.e.dataTransfer.clearData();
+      newState.dragType = "none";
+      newState.cards.forEach(card => {
+        if (Number(card.id) === Number(action.e.dataTransfer.getData("id"))) {
+          card.list = action.listName;
+          card.isDragged = false;
+        }
+      });
+      return newState;
+    case "ON_DRAG_LIST_START":
+      newState = { ...state };
+      newState.dragType = "list";
+      if (action.e.dataTransfer.getData("id") === "") {
+        newState.lists.forEach(list => {
+          if (list.name === action.listName) {
+            list.isDragged = true;
+          }
+        });
+        action.e.dataTransfer.setData("name", action.listName);
+      }
+      return newState;
+    case "ON_DRAG_LIST_END":
+      newState = { ...state };
+      action.e.dataTransfer.clearData();
+      newState.dragType = "none";
+      newState.lists.forEach(list => {
+        if (list.name === action.listName) {
+          list.isDragged = false;
+        }
+      });
+      return newState;
+    case "ON_DROP_LIST":
+      newState = { ...state };
+      action.e.dataTransfer.clearData();
+
+      let list1, list2;
+      newState.lists.forEach(list => {
+        if (list.name === action.listName) {
+          list.isDragged = false;
+          list1 = list;
+        }
+        if (list.name === String(action.e.dataTransfer.getData("name"))) {
+          list2 = list;
+        }
+      });
+      let orderSave = list1.order;
+      list1.order = list2.order;
+      list2.order = orderSave;
+
       return newState;
     default:
       return state;
