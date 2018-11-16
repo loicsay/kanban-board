@@ -164,7 +164,6 @@ export default (state = initialState, action) => {
       action.e.dataTransfer.setData("id", action.id);
       newState.cards[action.id].isDragged = true;
       newState.dragType = "card";
-      console.log(newState);
       return newState;
     case "ON_DRAG_CARD_END":
       newState = { ...state };
@@ -217,12 +216,10 @@ export default (state = initialState, action) => {
           list2 = list;
         }
       });
-      if (action.e.dataTransfer.getData("name") !== "") {
         action.e.dataTransfer.clearData();
         let orderSave = list1.order;
         list1.order = list2.order;
         list2.order = orderSave;
-      }
       return newState;
     default:
       return state;
