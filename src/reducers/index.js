@@ -139,6 +139,9 @@ export default (state = initialState, action) => {
       return newState;
     case "ADD_CARD":
       newState = { ...state };
+      newState.lists.filter(l => l.cards.filter(c => c.id === action.id));
+      };
+
       newState.cards.push({
         id: state.cards.length,
         list: action.listName,
