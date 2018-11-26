@@ -1,10 +1,6 @@
 import React from "react";
-import Board from "./Board";
+import BoardContainer from "../containers/BoardContainer";
 
-const App = () => (
-  <>
-    <Board />
-  </>
-);
+const App = () => <BoardContainer />;
 
 export default App;

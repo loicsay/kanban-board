@@ -70,6 +70,7 @@ const initialState = {
     {
       id: 2,
       name: "Current",
+      order: 3,
       isDragged: false,
       cards: [
         {
@@ -103,6 +104,7 @@ const initialState = {
     {
       id: 3,
       name: "Completed",
+      order: 4,
       isDragged: false,
       cards: [
         {
@@ -118,11 +120,12 @@ const initialState = {
       ]
     }
   ],
+  count: 4,
   dragType: "none"
 };
 
 export default (state = initialState, action) => {
-  let newState;
+  let newState = state;
   switch (action.type) {
     case "SORT_LISTS":
       newState = { ...state };
@@ -153,23 +156,28 @@ export default (state = initialState, action) => {
       return newState;
     case "ADD_LIST":
       newState = { ...state };
+      newState.lists = state.lists.slice();
       newState.lists.push({
-        id: newState.lists.length,
+        id: newState.count,
         name: "",
-        order: newState.lists.length + 1
+        order: newState.count + 1,
+        isDragged: false,
+        cards: []
       });
+      newState.count++;
       return newState;
     case "EDIT_LIST":
       newState = { ...state };
       newState.lists.forEach(list => {
-        if (list.name === action.listName) {
+        if (list.id === action.id) {
           list.name = action.newListName;
         }
       });
       return newState;
     case "DELETE_LIST":
       newState = { ...state };
-      newState.lists = newState.lists.filter(l => l.name !== action.listName);
+      newState.lists = newState.lists.filter(l => l.id !== action.id);
+      newState.count--;
       return newState;
     case "ON_DRAG_CARD_START":
       newState = { ...state };
@@ -199,11 +207,11 @@ export default (state = initialState, action) => {
       if (newState.dragType === "none") {
         newState.dragType = "list";
         newState.lists.forEach(list => {
-          if (list.name === action.listName) {
+          if (list.id === action.id) {
             list.isDragged = true;
           }
         });
-        action.e.dataTransfer.setData("name", action.listName);
+        action.e.dataTransfer.setData("listId", action.id);
       }
       return newState;
     case "ON_DRAG_LIST_END":
@@ -211,7 +219,7 @@ export default (state = initialState, action) => {
       action.e.dataTransfer.clearData();
       newState.dragType = "none";
       newState.lists.forEach(list => {
-        if (list.name === action.listName) {
+        if (list.id === action.id) {
           list.isDragged = false;
         }
       });
@@ -220,11 +228,11 @@ export default (state = initialState, action) => {
       newState = { ...state };
       let list1, list2;
       newState.lists.forEach(list => {
-        if (list.name === action.listName) {
+        if (list.id === action.id) {
           list.isDragged = false;
           list1 = list;
         }
-        if (list.name === String(action.e.dataTransfer.getData("name"))) {
+        if (String(list.id) === action.e.dataTransfer.getData("listId")) {
           list2 = list;
         }
       });
