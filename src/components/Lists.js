@@ -3,9 +3,9 @@ import ListContainer from "../containers/ListContainer";
 
 const Lists = ({ lists }) => (
   <div className="row">
-    {lists.map(list => (
-      <ListContainer key={list.id} list={list} />
-    ))}
+    {lists.map(list => {
+      return <ListContainer key={list.id} listId={list.id} />;
+    })}
   </div>
 );
 

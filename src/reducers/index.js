@@ -120,7 +120,8 @@ const initialState = {
       ]
     }
   ],
-  count: 4,
+  countLists: 4,
+  countCards: 18,
   dragType: "none"
 };
 
@@ -129,6 +130,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case "SORT_LISTS":
       newState = { ...state };
+      newState.lists = [...state.lists];
       newState.lists.sort((a, b) => {
         if (Number(a.order) > Number(b.order)) {
           return 1;
@@ -139,14 +141,19 @@ export default (state = initialState, action) => {
       return newState;
     case "ADD_CARD":
       newState = { ...state };
-      newState.lists.filter(l => l.cards.filter(c => c.id === action.id));
-      };
-
-      newState.cards.push({
-        id: state.cards.length,
-        list: action.listName,
-        content: "",
-        isDragged: false
+      newState.lists = [...state.lists];
+      newState.lists.forEach(list => {
+        if (list.id === action.listId) {
+          list.cards = [
+            ...list.cards,
+            {
+              id: newState.countCards,
+              content: "",
+              isDragged: false
+            }
+          ];
+          newState.countCards++;
+        }
       });
       return newState;
     case "EDIT_CARD":
@@ -159,15 +166,17 @@ export default (state = initialState, action) => {
       return newState;
     case "ADD_LIST":
       newState = { ...state };
-      newState.lists = state.lists.slice();
-      newState.lists.push({
-        id: newState.count,
-        name: "",
-        order: newState.count + 1,
-        isDragged: false,
-        cards: []
-      });
-      newState.count++;
+      newState.lists = [
+        ...state.lists,
+        {
+          id: newState.countLists,
+          name: "",
+          order: newState.countLists + 1,
+          isDragged: false,
+          cards: []
+        }
+      ];
+      newState.countLists++;
       return newState;
     case "EDIT_LIST":
       newState = { ...state };
@@ -179,6 +188,7 @@ export default (state = initialState, action) => {
       return newState;
     case "DELETE_LIST":
       newState = { ...state };
+      newState.lists = [...newState.lists];
       newState.lists = newState.lists.filter(l => l.id !== action.id);
       newState.count--;
       return newState;

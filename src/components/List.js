@@ -1,14 +1,6 @@
 import React from "react";
 import CardContainer from "../containers/CardContainer";
 
-const renderCard = card => {
-  return (
-    <div key={card.id}>
-      <CardContainer card={card} />
-    </div>
-  );
-};
-
 const List = ({
   list,
   editList,
@@ -16,24 +8,25 @@ const List = ({
   onDragListStart,
   onDragListEnd,
   onDropList,
-  sortLists
+  sortLists,
+  addCard
 }) => (
   <div
-    key={list.id}
+    key={list[0].id}
     className="col-sm"
     draggable
     onDragOver={e => e.preventDefault()}
     onDragStart={e => {
       e.persist();
-      onDragListStart(list.id, e);
+      onDragListStart(list[0].id, e);
     }}
     onDragEnd={e => {
       e.persist();
-      onDragListEnd(list.id, e);
+      onDragListEnd(list[0].id, e);
     }}
     onDrop={e => {
       e.persist();
-      onDropList(list.id, e);
+      onDropList(list[0].id, e);
       sortLists();
     }}
   >
@@ -41,13 +34,22 @@ const List = ({
       <textarea
         className="form-control listTitle"
         rows="2"
-        defaultValue={list.name}
-        onBlur={e => editList(list.id, e.target.value)}
+        defaultValue={list[0].name}
+        onBlur={e => editList(list[0].id, e.target.value)}
       />
-      <button className="btn-danger btn" onClick={() => deleteList(list.id)} />
+      <button
+        className="btn-danger btn"
+        onClick={() => deleteList(list[0].id)}
+      />
     </div>
-    {list.cards.map(card => renderCard(card))}
-    <button type="button" className="btn btn-info btn-sm">
+    {list[0].cards.map(card => (
+      <CardContainer key={card.id} listId={list[0].id} cardId={card.id} />
+    ))}
+    <button
+      type="button"
+      className="btn btn-info btn-sm"
+      onClick={() => addCard(list[0].id)}
+    >
       Add a card...
     </button>
   </div>

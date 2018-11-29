@@ -1,5 +1,6 @@
-export const addCard = () => ({
-  type: "ADD_CARD"
+export const addCard = listId => ({
+  type: "ADD_CARD",
+  listId: listId
 });
 
 export const editCard = (id, newCardName) => ({
