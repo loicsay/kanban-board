@@ -6,11 +6,15 @@ const Card = ({
   editCard,
   deleteCard,
   onDragCardStart,
-  onDropCard,
   onDragCardEnd
 }) => {
   return (
-    <div className="card" draggable>
+    <div
+      className="card"
+      draggable
+      onDragStart={e => onDragCardStart(e, listId, card)}
+      onDragEnd={e => onDragCardEnd(e, listId, card.id)}
+    >
       <div className="card-body">
         <button
           className="btn-danger btn-sm"

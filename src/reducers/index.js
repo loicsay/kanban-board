@@ -59,6 +59,7 @@ export default (state = initialState, action) => {
       return newState;
     case "ON_DRAG_LIST_END":
       newState = { ...state };
+      newState.lists = [...newState.lists];
       action.e.dataTransfer.clearData();
       newState.dragType = "none";
       newState.lists.forEach(list => {
@@ -83,6 +84,25 @@ export default (state = initialState, action) => {
       let orderSave = list1.order;
       list1.order = list2.order;
       list2.order = orderSave;
+      return newState;
+    case "ON_DROP_CARD_ON_LIST":
+      newState = { ...state };
+      newState.dragType = "none";
+      newState.lists = [...state.lists];
+      for (let i = 0; i < state.lists.length; i++) {
+        newState.lists[i].cards = [...state.lists[i].cards];
+        if (newState.lists[i].id === action.listId) {
+          newState.lists[i].cards = [
+            ...newState.lists[i].cards,
+            {
+              id: action.e.dataTransfer.getData("cardId"),
+              content: action.e.dataTransfer.getData("cardContent"),
+              isDragged: false
+            }
+          ];
+        }
+      }
+
       return newState;
     // ---------------- //
     // ACTIONS ON CARDS //
@@ -127,33 +147,50 @@ export default (state = initialState, action) => {
         newState.lists[i].cards = [...state.lists[i].cards];
       }
       newState.lists.forEach(list => {
-        if (list.id === action.listId) {
-          list.cards = list.cards.filter(card => card.id !== action.cardId);
+        if (list.id === Number(action.listId)) {
+          list.cards = list.cards.filter(
+            card => card.id !== Number(action.cardId)
+          );
         }
       });
       return newState;
     case "ON_DRAG_CARD_START":
+      action.e.dataTransfer.setData("cardId", action.card.id);
+      action.e.dataTransfer.setData("cardContent", action.card.content);
+      action.e.dataTransfer.setData("listId", action.listId);
       newState = { ...state };
-      action.e.dataTransfer.setData("id", action.id);
-      newState.cards[action.id].isDragged = true;
       newState.dragType = "card";
-      return newState;
-    case "ON_DRAG_CARD_END":
-      newState = { ...state };
-      action.e.dataTransfer.clearData();
-      newState.cards[action.id].isDragged = false;
-      newState.dragType = "none";
-      return newState;
-    case "ON_DROP_CARD":
-      newState = { ...state };
-      newState.dragType = "none";
-      newState.cards.forEach(card => {
-        if (Number(card.id) === Number(action.e.dataTransfer.getData("id"))) {
-          card.list = action.listName;
-          card.isDragged = false;
+      newState.lists = [...state.lists];
+      for (let i = 0; i < state.lists.length; i++) {
+        newState.lists[i].cards = [...state.lists[i].cards];
+      }
+      newState.lists.forEach(list => {
+        if (list.id === action.listId) {
+          list.cards.forEach(card => {
+            if (card.id === action.cardId) {
+              card.isDragged = true;
+            }
+          });
         }
       });
+      return newState;
+    case "ON_DRAG_CARD_END":
       action.e.dataTransfer.clearData();
+      newState = { ...state };
+      newState.dragType = "none";
+      newState.lists = [...state.lists];
+      for (let i = 0; i < state.lists.length; i++) {
+        newState.lists[i].cards = [...state.lists[i].cards];
+      }
+      newState.lists.forEach(list => {
+        if (list.id === action.listId) {
+          list.cards.forEach(card => {
+            if (card.id === action.cardId) {
+              card.isDragged = false;
+            }
+          });
+        }
+      });
       return newState;
     default:
       return state;

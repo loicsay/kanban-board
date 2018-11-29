@@ -29,6 +29,12 @@ export const onDropList = (id, e) => ({
   e: e
 });
 
+export const onDropCardOnList = (e, listId) => ({
+  type: "ON_DROP_CARD_ON_LIST",
+  e: e,
+  listId: listId
+});
+
 export const onDragListEnd = (id, e) => ({
   type: "ON_DRAG_LIST_END",
   id: id,

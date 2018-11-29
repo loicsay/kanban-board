@@ -16,20 +16,16 @@ export const deleteCard = (listId, cardId) => ({
   cardId: cardId
 });
 
-export const onDragCardStart = (id, e) => ({
+export const onDragCardStart = (e, listId, card) => ({
   type: "ON_DRAG_CARD_START",
-  id: id,
-  e: e
+  e: e,
+  listId: listId,
+  card: card
 });
 
-export const onDropCard = (id, e) => ({
-  type: "ON_DROP_CARD",
-  id: id,
-  e: e
-});
-
-export const onDragCardEnd = (id, e) => ({
+export const onDragCardEnd = (e, listId, cardId) => ({
   type: "ON_DRAG_CARD_END",
-  id: id,
-  e: e
+  e: e,
+  listId: listId,
+  cardId: cardId
 });

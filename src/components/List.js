@@ -3,52 +3,61 @@ import CardContainer from "../containers/CardContainer";
 
 const List = ({
   list,
+  dragType,
   editList,
   deleteList,
   onDragListStart,
   onDragListEnd,
   onDropList,
+  onDropCardOnList,
   sortLists,
-  addCard
+  addCard,
+  deleteCard
 }) => (
   <div
-    key={list[0].id}
+    key={list.id}
     className="col-sm"
     draggable
     onDragOver={e => e.preventDefault()}
     onDragStart={e => {
       e.persist();
-      onDragListStart(list[0].id, e);
+      onDragListStart(list.id, e);
     }}
     onDragEnd={e => {
       e.persist();
-      onDragListEnd(list[0].id, e);
+      onDragListEnd(list.id, e);
     }}
     onDrop={e => {
       e.persist();
-      onDropList(list[0].id, e);
-      sortLists();
+      if (dragType === "list") {
+        onDropList(list.id, e);
+        sortLists();
+      }
+      if (dragType === "card") {
+        onDropCardOnList(e, list.id);
+        deleteCard(
+          e.dataTransfer.getData("listId"),
+          e.dataTransfer.getData("cardId")
+        );
+      }
     }}
   >
     <div className="listHeader">
       <textarea
         className="form-control listTitle"
         rows="2"
-        defaultValue={list[0].name}
-        onBlur={e => editList(list[0].id, e.target.value)}
+        defaultValue={list.name}
+        onBlur={e => editList(list.id, e.target.value)}
       />
-      <button
-        className="btn-danger btn"
-        onClick={() => deleteList(list[0].id)}
-      />
+      <button className="btn-danger btn" onClick={() => deleteList(list.id)} />
     </div>
-    {list[0].cards.map(card => (
-      <CardContainer key={card.id} listId={list[0].id} cardId={card.id} />
+    {list.cards.map(card => (
+      <CardContainer key={card.id} listId={list.id} cardId={card.id} />
     ))}
     <button
       type="button"
       className="btn btn-info btn-sm"
-      onClick={() => addCard(list[0].id)}
+      onClick={() => addCard(list.id)}
     >
       Add a card...
     </button>
