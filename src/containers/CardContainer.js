@@ -11,14 +11,16 @@ const mapStateToProps = (state, ownProps) => {
   return {
     card: state.lists
       .filter(l => l.id === ownProps.listId)[0]
-      .cards.filter(c => c.id === ownProps.cardId)
+      .cards.filter(c => c.id === ownProps.cardId)[0],
+    listId: ownProps.listId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    editCard: (id, newCardName) => dispatch(editCard(id, newCardName)),
-    deleteCard: id => dispatch(deleteCard(id)),
+    editCard: (listId, cardId, newCardName) =>
+      dispatch(editCard(listId, cardId, newCardName)),
+    deleteCard: (listId, cardId) => dispatch(deleteCard(listId, cardId)),
     onDragCardStart: (id, target) => dispatch(onDragCardStart(id, target)),
     onDropCard: (id, target) => dispatch(onDropCard(id, target)),
     onDragCardEnd: (id, target) => dispatch(onDragCardEnd(id, target))

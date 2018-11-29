@@ -3,15 +3,17 @@ export const addCard = listId => ({
   listId: listId
 });
 
-export const editCard = (id, newCardName) => ({
+export const editCard = (listId, cardId, newCardName) => ({
   type: "EDIT_CARD",
-  id: id,
+  listId: listId,
+  cardId: cardId,
   newCardName: newCardName
 });
 
-export const deleteCard = id => ({
+export const deleteCard = (listId, cardId) => ({
   type: "DELETE_CARD",
-  id: id
+  listId: listId,
+  cardId: cardId
 });
 
 export const onDragCardStart = (id, e) => ({

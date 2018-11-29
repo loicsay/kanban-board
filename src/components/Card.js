@@ -2,6 +2,7 @@ import React from "react";
 
 const Card = ({
   card,
+  listId,
   editCard,
   deleteCard,
   onDragCardStart,
@@ -11,12 +12,16 @@ const Card = ({
   return (
     <div className="card" draggable>
       <div className="card-body">
-        <button className="btn-danger btn-sm" />
+        <button
+          className="btn-danger btn-sm"
+          onClick={() => deleteCard(listId, card.id)}
+        />
         <div className="form-group">
           <textarea
             className="form-control"
             rows="2"
-            defaultValue={card[0].content}
+            defaultValue={card.content}
+            onBlur={e => editCard(listId, card.id, e.target.value)}
           />
         </div>
       </div>
