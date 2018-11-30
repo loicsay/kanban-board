@@ -93,7 +93,7 @@ export default (state = initialState, action) => {
         newState.lists[i].cards = [...state.lists[i].cards];
         if (newState.lists[i].id === action.listId) {
           newState.lists[i].cards = [
-            ...newState.lists[i].cards,
+            ...state.lists[i].cards,
             {
               id: action.e.dataTransfer.getData("cardId"),
               content: action.e.dataTransfer.getData("cardContent"),
@@ -102,7 +102,6 @@ export default (state = initialState, action) => {
           ];
         }
       }
-
       return newState;
     // ---------------- //
     // ACTIONS ON CARDS //
@@ -110,19 +109,20 @@ export default (state = initialState, action) => {
     case "ADD_CARD":
       newState = { ...state };
       newState.lists = [...state.lists];
-      newState.lists.forEach(list => {
-        if (list.id === action.listId) {
-          list.cards = [
-            ...list.cards,
+      for (let i = 0; i < state.lists.length; i++) {
+        newState.lists[i].cards = [...state.lists[i].cards];
+        if (newState.lists[i].id === action.listId) {
+          newState.lists[i].cards = [
+            ...state.lists[i].cards,
             {
-              id: newState.countCards,
+              id: state.countCards,
               content: "",
               isDragged: false
             }
           ];
           newState.countCards++;
         }
-      });
+      }
       return newState;
     case "EDIT_CARD":
       newState = { ...state };

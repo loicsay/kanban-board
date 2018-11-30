@@ -34,11 +34,13 @@ const List = ({
         sortLists();
       }
       if (dragType === "card") {
-        onDropCardOnList(e, list.id);
-        deleteCard(
-          e.dataTransfer.getData("listId"),
-          e.dataTransfer.getData("cardId")
-        );
+        if (list.id !== Number(e.dataTransfer.getData("listId"))) {
+          onDropCardOnList(e, list.id);
+          deleteCard(
+            e.dataTransfer.getData("listId"),
+            e.dataTransfer.getData("cardId")
+          );
+        }
       }
     }}
   >
