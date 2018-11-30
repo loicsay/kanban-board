@@ -95,7 +95,7 @@ export default (state = initialState, action) => {
           newState.lists[i].cards = [
             ...state.lists[i].cards,
             {
-              id: action.e.dataTransfer.getData("cardId"),
+              id: Number(action.e.dataTransfer.getData("cardId")),
               content: action.e.dataTransfer.getData("cardContent"),
               isDragged: false
             }
@@ -110,7 +110,6 @@ export default (state = initialState, action) => {
       newState = { ...state };
       newState.lists = [...state.lists];
       for (let i = 0; i < state.lists.length; i++) {
-        newState.lists[i].cards = [...state.lists[i].cards];
         if (newState.lists[i].id === action.listId) {
           newState.lists[i].cards = [
             ...state.lists[i].cards,
@@ -121,6 +120,8 @@ export default (state = initialState, action) => {
             }
           ];
           newState.countCards++;
+        } else {
+          newState.lists[i].cards = [...state.lists[i].cards];
         }
       }
       return newState;
